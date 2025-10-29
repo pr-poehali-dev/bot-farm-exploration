@@ -4,9 +4,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMetrics, setActiveMetrics] = useState({
     bots: 1247,
     tasks: 8934,
@@ -122,10 +124,31 @@ const Index = () => {
               <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">О нас</a>
               <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Контакты</a>
             </div>
-            <Button className="bg-primary hover:bg-primary/90">
-              <Icon name="LogIn" size={18} className="mr-2" />
-              Войти
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button className="bg-primary hover:bg-primary/90 hidden md:flex">
+                <Icon name="LogIn" size={18} className="mr-2" />
+                Войти
+              </Button>
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild className="md:hidden">
+                  <Button variant="ghost" size="icon">
+                    <Icon name="Menu" size={24} />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] bg-card">
+                  <nav className="flex flex-col gap-6 mt-8">
+                    <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-foreground hover:text-primary transition-colors">Возможности</a>
+                    <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-foreground hover:text-primary transition-colors">Тарифы</a>
+                    <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-foreground hover:text-primary transition-colors">О нас</a>
+                    <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-foreground hover:text-primary transition-colors">Контакты</a>
+                    <Button className="bg-primary hover:bg-primary/90 w-full mt-4">
+                      <Icon name="LogIn" size={18} className="mr-2" />
+                      Войти
+                    </Button>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </nav>
         </div>
       </header>
